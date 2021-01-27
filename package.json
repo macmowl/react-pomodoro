@@ -21,6 +21,9 @@
     "lint-staged": "^10.5.3",
     "prettier": "^2.2.1"
   },
+  "babel": {
+    "presets": ["@babel/preset-react"]
+  },
   "lint-staged": {
     "*.json": [
       "npx prettier --write"
@@ -33,5 +36,8 @@
     "hooks": {
       "pre-commit": "npx lint-staged"
     }
+  },
+  "dependencies": {
+    "@babel/preset-react": "^7.12.10"
   }
 }
