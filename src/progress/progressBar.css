@@ -1,7 +1,21 @@
+.progressbar {
+    margin-top: 70px;
+    position: relative;
+}
+
+.progressbar__tail {
+    position: absolute;
+    top: -26px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    z-index: 2;
+}
+
 .svg {
     display: block;
     margin: 20px auto;
     max-width: 100%;
+    transform: rotate(-90deg);
 }
 
 .svg-circle-bg {
@@ -12,7 +26,7 @@
     fill: none;
 }
 .svg-circle-text {
-   font-size: 2rem;
+    font-size: 4rem;
     text-anchor: middle;
     fill: #414141;
     font-weight: bold;
