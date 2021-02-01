@@ -1,0 +1,33 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #FA7777;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.container {
+    background-color: white;
+    border-radius: 30px;
+    height: 60vh;
+    width: 500px;
+    color: #F95959;
+    text-align: center;
+    padding: 30px;
+    box-shadow:
+        0 4.5px 3.6px rgba(0, 0, 0, 0.024),
+        0 12.5px 10px rgba(0, 0, 0, 0.035),
+        0 30.1px 24.1px rgba(0, 0, 0, 0.046),
+        0 100px 80px rgba(0, 0, 0, 0.07)
+    ;
+
+}
+
+.progress {
+    width: 300px;
+    height: 300px;
+}
