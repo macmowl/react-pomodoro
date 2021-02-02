@@ -1,15 +1,7 @@
 import React, {useEffect, useState} from "react";
-import ProgressBar from "./progress/progress-bar";
-import Modal from "././modal/modal";
-import useModal from "./use-modal";
 
-const Pomodoro = () => {
-    const seconds = 1200;
-    const [timeLeft, setTimeLeft] = useState(seconds);
-    const [totalTime, setTotalTime] = useState(seconds);
+const Commands = ({setTimeLeft, setTotalTime, timeLeft, totalTime}) => {
     const [isPlaying, setIsPlaying] = useState(true);
-
-    const {isShowing: isFormShowed, toggle: toggleForm} = useModal();
 
     const decrement = () => {
         if (isPlaying === true && timeLeft > 60) {
@@ -29,8 +21,8 @@ const Pomodoro = () => {
 
     const reset = () => {
         setIsPlaying(true);
-        setTimeLeft(seconds);
-        setTotalTime(seconds);
+        setTimeLeft(totalTime);
+        setTotalTime(totalTime);
     };
 
     useEffect(() => {
@@ -43,37 +35,8 @@ const Pomodoro = () => {
         }
     }, [isPlaying]);
 
-    useEffect(() => {
-        if (timeLeft === 0) {
-            setTimeout(() => {
-                toggleForm();
-            }, 1000);
-            // reset()
-        }
-    }, [timeLeft]);
-
-    const minutes = String(Math.floor(timeLeft / 60)).padStart(2, "0");
-    const secondsLeft = String(timeLeft % 60).padStart(2, "0");
-
     return (
-        <div className={"container"}>
-            <Modal
-                isShowing={isFormShowed}
-                hide={toggleForm}
-                title={"Well done"}
-                text={"🎉 Zumba time 🎉"}
-                reset={reset}
-            />
-            <h1>{"Pomodoro"}</h1>
-            <ProgressBar
-                progress={timeLeft}
-                size={300}
-                strokeWidth={15}
-                circleOneStroke={"#FEDEDE"}
-                circleTwoStroke={"#F95959"}
-                total={totalTime}
-            />
-            <h2>{`${minutes}:${secondsLeft}`}</h2>
+        <>
             <button
                 type={"button"}
                 disabled={!isPlaying ? "disabled" : ""}
@@ -142,8 +105,8 @@ const Pomodoro = () => {
                 onClick={increment}>
                 {"+"}
             </button>
-        </div>
+        </>
     );
 };
 
-export default Pomodoro;
+export default Commands;
