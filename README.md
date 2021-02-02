@@ -2,7 +2,7 @@
 
 A pomodoro made in react 🍅
 
-![Pomodoro](http://www.google.be)
+![Pomodoro](https://github.com/macmowl/react-pomodoro/blob/main/screenshot.png)
 
 ## How to use
 
