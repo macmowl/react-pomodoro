@@ -1,11 +1,15 @@
 import React, {useEffect, useState} from "react";
 import ProgressBar from "./progress/progress-bar";
+import Modal from "././modal/modal";
+import useModal from "./use-modal";
 
 const Pomodoro = () => {
-    const seconds = 10;
+    const seconds = 3;
     const [timeLeft, setTimeLeft] = useState(seconds);
     const [totalTime, setTotalTime] = useState(seconds);
     const [isPlaying, setIsPlaying] = useState(true);
+
+    const {isShowing: isFormShowed, toggle: toggleForm} = useModal();
 
     const decrement = () => {
         if (isPlaying === true) {
@@ -30,20 +34,35 @@ const Pomodoro = () => {
     };
 
     useEffect(() => {
-        if (isPlaying === false) {
+        if (!isPlaying) {
             window.interval = setInterval(() => {
                 setTimeLeft(prevTime => (prevTime > 0 ? prevTime - 1 : 0));
             }, 1000);
-        } else if (isPlaying === true) {
+        } else {
             clearInterval(window.interval);
         }
     }, [isPlaying]);
+
+    useEffect(() => {
+        if (timeLeft === 0) {
+            setTimeout(() => {
+                toggleForm();
+            }, 1000);
+            // reset()
+        }
+    }, [timeLeft]);
 
     const minutes = String(Math.floor(timeLeft / 60)).padStart(2, "0");
     const secondsLeft = String(timeLeft % 60).padStart(2, "0");
 
     return (
         <div className={"container"}>
+            <Modal
+                isShowing={isFormShowed}
+                hide={toggleForm}
+                title={"Well done"}
+                text={"Zumba time"}
+            />
             <h1>{"Pomodoro"}</h1>
             <ProgressBar
                 progress={timeLeft}
@@ -54,8 +73,10 @@ const Pomodoro = () => {
                 total={totalTime}
             />
             <h2>{`${minutes}:${secondsLeft}`}</h2>
-            <button onClick={decrement}>{"-"}</button>
-            <button onClick={reset}>
+            <button type={"button"} onClick={decrement}>
+                {"-"}
+            </button>
+            <button type={"button"} onClick={reset}>
                 <svg
                     className={"svgBtn"}
                     width={"23"}
@@ -72,6 +93,7 @@ const Pomodoro = () => {
                 </svg>
             </button>
             <button
+                type={"button"}
                 onClick={play}
                 style={isPlaying ? {display: "inline"} : {display: "none"}}>
                 <svg
@@ -90,6 +112,7 @@ const Pomodoro = () => {
                 </svg>
             </button>
             <button
+                type={"button"}
                 onClick={pause}
                 style={isPlaying ? {display: "none"} : {display: "inline"}}>
                 <svg
@@ -109,7 +132,9 @@ const Pomodoro = () => {
                     />
                 </svg>
             </button>
-            <button onClick={increment}>{"+"}</button>
+            <button type={"button"} onClick={increment}>
+                {"+"}
+            </button>
         </div>
     );
 };
