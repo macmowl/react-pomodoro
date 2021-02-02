@@ -4,7 +4,7 @@ import Modal from "././modal/modal";
 import useModal from "./use-modal";
 
 const Pomodoro = () => {
-    const seconds = 2;
+    const seconds = 1200;
     const [timeLeft, setTimeLeft] = useState(seconds);
     const [totalTime, setTotalTime] = useState(seconds);
     const [isPlaying, setIsPlaying] = useState(true);
