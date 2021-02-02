@@ -3,7 +3,13 @@ import PropTypes from "prop-types";
 import "./modal.css";
 
 const Modal = props => {
-    const {isShowing, hide, title, text} = props;
+    const {isShowing, hide, title, text, reset} = props;
+
+    const btnReset = () => {
+        reset();
+        hide();
+    };
+
     return isShowing ? (
         <>
             <div className={"modal-overlay"}>
@@ -26,12 +32,20 @@ const Modal = props => {
                             />
                         </svg>
                         <p>{text}</p>
-                        <button
-                            type={"button"}
-                            className={"modal-close-button"}
-                            onClick={hide}>
-                            {"Close"}
-                        </button>
+                        <div className={"modal__buttons"}>
+                            <button
+                                type={"button"}
+                                className={"modal-close-button"}
+                                onClick={btnReset}>
+                                {"Reset"}
+                            </button>
+                            <button
+                                type={"button"}
+                                className={"modal-close-button"}
+                                onClick={hide}>
+                                {"Close"}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

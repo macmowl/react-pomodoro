@@ -4,7 +4,7 @@ import Modal from "././modal/modal";
 import useModal from "./use-modal";
 
 const Pomodoro = () => {
-    const seconds = 1200;
+    const seconds = 2;
     const [timeLeft, setTimeLeft] = useState(seconds);
     const [totalTime, setTotalTime] = useState(seconds);
     const [isPlaying, setIsPlaying] = useState(true);
@@ -62,6 +62,7 @@ const Pomodoro = () => {
                 hide={toggleForm}
                 title={"Well done"}
                 text={"🎉 Zumba time 🎉"}
+                reset={reset}
             />
             <h1>{"Pomodoro"}</h1>
             <ProgressBar

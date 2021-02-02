@@ -20,8 +20,7 @@ const ProgressBar = props => {
     useEffect(() => {
         const progressOffset = (progress / total) * circumference;
         setOffset(progressOffset);
-        circleRef.current.style =
-            "transition: stroke-dashOffset 850ms ease-in-out";
+        circleRef.current.style = "transition: stroke-dashOffset 1000ms linear";
     }, [setOffset, circumference, progress, offset]);
 
     return (
