@@ -77,7 +77,10 @@ button:hover:after {
     color: #1CAD45;
 }
 
-button img {
-    display: block;
-    margin: 0 auto;
+.svgBtn {
+    fill: #f95959;
+}
+
+.svgBtn:hover {
+    fill: white;
 }

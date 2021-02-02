@@ -1,24 +1,27 @@
 import React, {useEffect, useState} from "react";
 import ProgressBar from "./progress/progress-bar";
-import btn_play from "./assets/play.svg";
-import btn_pause from "./assets/pause.svg";
 
 const Pomodoro = () => {
-    const seconds = 100;
+    const seconds = 10;
     const [timeLeft, setTimeLeft] = useState(seconds);
     const [totalTime, setTotalTime] = useState(seconds);
     const [isPlaying, setIsPlaying] = useState(true);
 
     const decrement = () => {
-        setTimeLeft(prevTime => prevTime - 60);
-        setTotalTime(prevTime => prevTime - 60);
+        if (isPlaying === true) {
+            setTimeLeft(prevTime => prevTime - 60);
+            setTotalTime(prevTime => prevTime - 60);
+        }
     };
     const increment = () => {
-        setTimeLeft(prevTime => prevTime + 60);
-        setTotalTime(prevTime => prevTime + 60);
+        if (isPlaying === true) {
+            setTimeLeft(prevTime => prevTime + 60);
+            setTotalTime(prevTime => prevTime + 60);
+        }
     };
 
     const play = () => setIsPlaying(false);
+    const pause = () => setIsPlaying(true);
 
     const reset = () => {
         setIsPlaying(true);
@@ -26,17 +29,18 @@ const Pomodoro = () => {
         setTotalTime(seconds);
     };
 
-    const pause = () => setIsPlaying(true);
-
     useEffect(() => {
         if (isPlaying === false) {
             window.interval = setInterval(() => {
-                setTimeLeft(prevTime => prevTime - 1);
+                setTimeLeft(prevTime => (prevTime > 0 ? prevTime - 1 : 0));
             }, 1000);
         } else if (isPlaying === true) {
             clearInterval(window.interval);
         }
     }, [isPlaying]);
+
+    const minutes = String(Math.floor(timeLeft / 60)).padStart(2, "0");
+    const secondsLeft = String(timeLeft % 60).padStart(2, "0");
 
     return (
         <div className={"container"}>
@@ -49,14 +53,11 @@ const Pomodoro = () => {
                 circleTwoStroke={"#F95959"}
                 total={totalTime}
             />
-            <h2>
-                {`0${Math.floor(timeLeft / 60)}`.slice(-2)}
-                {":"}
-                {`0${timeLeft % 60}`.slice(-2)}
-            </h2>
+            <h2>{`${minutes}:${secondsLeft}`}</h2>
             <button onClick={decrement}>{"-"}</button>
             <button onClick={reset}>
                 <svg
+                    className={"svgBtn"}
                     width={"23"}
                     height={"23"}
                     viewBox={"0 0 23 23"}
@@ -70,8 +71,43 @@ const Pomodoro = () => {
                     />
                 </svg>
             </button>
-            <button onClick={isPlaying ? play : pause}>
-                <img src={isPlaying ? btn_play : btn_pause} />
+            <button
+                onClick={play}
+                style={isPlaying ? {display: "inline"} : {display: "none"}}>
+                <svg
+                    className={"svgBtn"}
+                    width={"11"}
+                    height={"18"}
+                    viewBox={"0 0 11 18"}
+                    fill={"none"}
+                    xmlns={"http://www.w3.org/2000/svg"}>
+                    <path
+                        d={
+                            "M0 16.7854V1.30679C0 0.43157 1.04483 -0.021365 1.68361 0.576942L10.1968 8.55076C10.6274 8.95408 10.6171 9.6406 10.1745 10.0307L1.66128 17.5355C1.01548 18.1048 0 17.6463 0 16.7854Z"
+                        }
+                        fill={"#F95959"}
+                    />
+                </svg>
+            </button>
+            <button
+                onClick={pause}
+                style={isPlaying ? {display: "none"} : {display: "inline"}}>
+                <svg
+                    className={"svgBtn"}
+                    width={"15"}
+                    height={"18"}
+                    viewBox={"0 0 15 18"}
+                    fill={"none"}
+                    xmlns={"http://www.w3.org/2000/svg"}>
+                    <path
+                        d={"M0.984375 18V0.867188H5.63672V18H0.984375Z"}
+                        fill={"#F95959"}
+                    />
+                    <path
+                        d={"M9.35156 18V0.867188H14.0039V18H9.35156Z"}
+                        fill={"#F95959"}
+                    />
+                </svg>
             </button>
             <button onClick={increment}>{"+"}</button>
         </div>
