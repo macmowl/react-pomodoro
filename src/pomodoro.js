@@ -4,7 +4,7 @@ import Modal from "././modal/modal";
 import useModal from "./use-modal";
 
 const Pomodoro = () => {
-    const seconds = 3;
+    const seconds = 1200;
     const [timeLeft, setTimeLeft] = useState(seconds);
     const [totalTime, setTotalTime] = useState(seconds);
     const [isPlaying, setIsPlaying] = useState(true);
@@ -12,7 +12,7 @@ const Pomodoro = () => {
     const {isShowing: isFormShowed, toggle: toggleForm} = useModal();
 
     const decrement = () => {
-        if (isPlaying === true) {
+        if (isPlaying === true && timeLeft > 60) {
             setTimeLeft(prevTime => prevTime - 60);
             setTotalTime(prevTime => prevTime - 60);
         }
@@ -61,7 +61,7 @@ const Pomodoro = () => {
                 isShowing={isFormShowed}
                 hide={toggleForm}
                 title={"Well done"}
-                text={"Zumba time"}
+                text={"🎉 Zumba time 🎉"}
             />
             <h1>{"Pomodoro"}</h1>
             <ProgressBar
@@ -73,7 +73,10 @@ const Pomodoro = () => {
                 total={totalTime}
             />
             <h2>{`${minutes}:${secondsLeft}`}</h2>
-            <button type={"button"} onClick={decrement}>
+            <button
+                type={"button"}
+                disabled={!isPlaying ? "disabled" : ""}
+                onClick={decrement}>
                 {"-"}
             </button>
             <button type={"button"} onClick={reset}>
@@ -132,7 +135,10 @@ const Pomodoro = () => {
                     />
                 </svg>
             </button>
-            <button type={"button"} onClick={increment}>
+            <button
+                type={"button"}
+                disabled={!isPlaying ? "disabled" : ""}
+                onClick={increment}>
                 {"+"}
             </button>
         </div>

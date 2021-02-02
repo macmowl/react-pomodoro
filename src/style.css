@@ -61,13 +61,13 @@ button {
     position: relative;
 }
 
-button:hover {
+button:hover:enabled {
     background-color: #FA7777;
     color: white;
     /* display: block; */
 }
 
-button:hover:after {
+button:hover:enabled:after {
     content: "⋆";
     position: absolute;
     top: -48px;
@@ -77,10 +77,10 @@ button:hover:after {
     color: #1CAD45;
 }
 
-.svgBtn {
-    fill: #f95959;
+button:disabled {
+    color: #FBB6B6;
 }
 
-.svgBtn:hover {
+button:hover svg path {
     fill: white;
 }
